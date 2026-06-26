@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Travel Planner - Plan Your Perfect Trip</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="logo">✈️</span>
+                <span class="brand-text">TravelAI</span>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">✨ AI-Powered Travel Planning</div>
+            <h1 class="hero-title">Plan Your Perfect Trip with AI</h1>
+            <p class="hero-subtitle">Get personalized itineraries, weather insights, and budget planning powered by artificial intelligence</p>
+            <button class="cta-button" onclick="document.getElementById('planner-section').scrollIntoView({behavior: 'smooth'})">Start Planning</button>
+        </div>
+        <div class="hero-background"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-header">
+            <h2>Why Choose TravelAI?</h2>
+            <p>Everything you need for the perfect trip</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Itinerary</h3>
+                <p>Get detailed day-by-day plans tailored to your interests</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌤️</div>
+                <h3>Weather Intel</h3>
+                <p>Real-time weather data for your destination</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Budget Planning</h3>
+                <p>Smart budget allocation for all travel expenses</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📄</div>
+                <h3>PDF Export</h3>
+                <p>Save and share your itinerary in one click</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planner Section -->
+    <section id="planner-section" class="planner-section">
+        <div class="planner-container">
+            <div class="planner-card">
+                <div class="card-header">
+                    <h2>Start Your Adventure</h2>
+                    <p>Tell us about your dream trip</p>
+                </div>
+                
+                <form id="travelForm" class="travel-form">
+                    <div class="form-group">
+                        <label for="destination">Where do you want to go?</label>
+                        <input type="text" id="destination" placeholder="e.g. Paris, Tokyo, Barcelona" required>
+                        <span class="form-help">Enter city and country</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="duration">Trip Duration</label>
+                            <input type="text" id="duration" placeholder="e.g. 5 days, 2 weeks" required>
+                            <span class="form-help">How long are you staying?</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Budget Level</label>
+                            <select id="budget" required>
+                                <option value="">Select budget</option>
+                                <option value="Budget">💰 Budget</option>
+                                <option value="Mid-range">💰💰 Mid-range</option>
+                                <option value="Luxury">💰💰💰 Luxury</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interests">Your Interests</label>
+                        <input type="text" id="interests" placeholder="e.g. history, food, adventure, nature" required>
+                        <span class="form-help">Comma-separated interests</span>
+                    </div>
+
+                    <button type="button" id="planBtn" class="plan-button" onclick="generatePlan()">
+                        <span class="button-text">Generate Itinerary</span>
+                        <span class="button-icon">✈️</span>
+                    </button>
+                </form>
+
+                <div id="loading" class="loading-state" style="display: none;">
+                    <div class="skeleton-loader">
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text"></div>
+                    </div>
+                    <p class="loading-text">🤖 Planning your adventure...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="results-section" style="display: none;">
+        <div class="results-container">
+            <div class="results-header">
+                <h2>Your Personalized Itinerary</h2>
+                <button class="close-results" onclick="document.getElementById('results').style.display='none'">✕</button>
+            </div>
+
+            <div class="results-content">
+                <div id="weatherCard" class="weather-card-result"></div>
+                
+                <div class="itinerary-card">
+                    <div class="itinerary-header">
+                        <h3>📋 Your Trip Details</h3>
+                    </div>
+                    <div id="itineraryOutput" class="itinerary-output"></div>
+                </div>
+
+                <div class="export-section">
+                    <button id="exportBtn" class="export-button" onclick="exportPDF()">
+                        <span>📄 Export as PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 TravelAI. Plan smarter, travel better.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
