@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Itinerary - TravelAI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="logo">✈️</span>
+                <span class="brand-text">TravelAI</span>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <a href="/" class="back-button">← Back</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Top Section -->
+        <div class="dashboard-top">
+            <div class="weather-widget">
+                <div class="weather-header">
+                    <h3>🌤️ Current Weather</h3>
+                </div>
+                <div id="weatherDisplay" class="weather-display">
+                    <div class="weather-skeleton"></div>
+                </div>
+            </div>
+
+            <div class="export-section">
+                <button id="exportPdfBtn" class="export-button-large">
+                    📄 Export as PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-main">
+            <!-- Trip Summary Section -->
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="summary-icon">📍</div>
+                    <div class="summary-content">
+                        <p class="summary-label">Destination</p>
+                        <p id="summaryDestination" class="summary-value">-</p>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">📅</div>
+                    <div class="summary-content">
+                        <p class="summary-label">Duration</p>
+                        <p id="summaryDuration" class="summary-value">-</p>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">💰</div>
+                    <div class="summary-content">
+                        <p class="summary-label">Budget</p>
+                        <p id="summaryBudget" class="summary-value">-</p>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">🎯</div>
+                    <div class="summary-content">
+                        <p class="summary-label">Interests</p>
+                        <p id="summaryInterests" class="summary-value">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Itinerary Card -->
+            <div class="itinerary-container">
+                <div class="card-header-large">
+                    <h2>Your Complete Itinerary</h2>
+                    <p>Detailed day-by-day travel plan</p>
+                </div>
+                <div id="itineraryContent" class="itinerary-content">
+                    <div class="content-skeleton">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Specialized Cards -->
+            <div class="cards-grid">
+                <div class="info-card accommodation-card">
+                    <div class="card-icon">🏨</div>
+                    <h3>Accommodation</h3>
+                    <div id="accommodationContent" class="card-content">
+                        <p>Loading...</p>
+                    </div>
+                </div>
+
+                <div class="info-card transportation-card">
+                    <div class="card-icon">🚗</div>
+                    <h3>Transportation</h3>
+                    <div id="transportationContent" class="card-content">
+                        <p>Loading...</p>
+                    </div>
+                </div>
+
+                <div class="info-card budget-card">
+                    <div class="card-icon">💵</div>
+                    <h3>Budget Allocation</h3>
+                    <div id="budgetContent" class="card-content">
+                        <p>Loading...</p>
+                    </div>
+                </div>
+
+                <div class="info-card emergency-card">
+                    <div class="card-icon">🆘</div>
+                    <h3>Emergency Information</h3>
+                    <div id="emergencyContent" class="card-content">
+                        <p>Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="itinerary.js"></script>
+</body>
+</html>
