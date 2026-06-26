@@ -1,0 +1,1174 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
+:root {
+    /* Light Theme */
+    --primary: #3366ff;
+    --primary-light: #e6f0ff;
+    --secondary: #7c3aed;
+    --accent: #06b6d4;
+    --background: #ffffff;
+    --surface: #f8fafc;
+    --surface-alt: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-tertiary: #94a3b8;
+    --border: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.15);
+}
+
+html.dark-mode {
+    --background: #0f172a;
+    --surface: #1e293b;
+    --surface-alt: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+    --border: #334155;
+    --primary-light: rgba(51, 102, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Navigation */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+html.dark-mode .navbar {
+    background: rgba(15, 23, 42, 0.7);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.logo {
+    font-size: 2rem;
+}
+
+.brand-text {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.theme-toggle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:hover {
+    background: var(--primary-light);
+    transform: rotate(20deg);
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 2rem;
+}
+
+.hero-background {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(51, 102, 255, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+    z-index: -1;
+}
+
+html.dark-mode .hero-background {
+    background: linear-gradient(135deg, rgba(51, 102, 255, 0.03) 0%, rgba(124, 58, 237, 0.03) 100%);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(51, 102, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    top: -200px;
+    right: -200px;
+    z-index: -1;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    bottom: -150px;
+    left: -150px;
+    z-index: -1;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.hero-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(51, 102, 255, 0.3);
+    letter-spacing: 0.5px;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(51, 102, 255, 0.4);
+}
+
+.cta-button:active {
+    transform: translateY(0);
+}
+
+/* Features Section */
+.features-section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    scroll-margin-top: 100px;
+}
+
+.features-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.features-header h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+.features-header p {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.feature-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Planner Section */
+.planner-section {
+    padding: 6rem 2rem;
+    background: linear-gradient(180deg, var(--surface) 0%, var(--background) 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.planner-container {
+    max-width: 600px;
+    width: 100%;
+}
+
+.planner-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+html.dark-mode .planner-card {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(100, 116, 139, 0.2);
+}
+
+.planner-card:hover {
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.card-header h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.card-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.travel-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 640px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+}
+
+.form-help {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-top: 0.25rem;
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.875rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    background: var(--background);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group select {
+    color: var(--text-tertiary);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.plan-button {
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(51, 102, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    letter-spacing: 0.5px;
+    margin-top: 1rem;
+}
+
+.plan-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(51, 102, 255, 0.4);
+}
+
+.plan-button:active {
+    transform: translateY(0);
+}
+
+.plan-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.button-icon {
+    font-size: 1.2rem;
+}
+
+/* Loading State */
+.loading-state {
+    padding: 2rem;
+    text-align: center;
+}
+
+.loading-text {
+    color: var(--text-secondary);
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+.skeleton-loader {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.skeleton {
+    background: linear-gradient(90deg, var(--surface) 25%, var(--surface-alt) 50%, var(--surface) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-text {
+    height: 12px;
+}
+
+.skeleton-text:nth-child(2) {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Results Section */
+.results-section {
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.results-container {
+    animation: slideUp 0.5s ease-out;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border);
+}
+
+.results-header h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.close-results {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-results:hover {
+    background: var(--primary-light);
+    transform: rotate(90deg);
+}
+
+.results-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.weather-card-result {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+
+.itinerary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.itinerary-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-alt);
+}
+
+.itinerary-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.itinerary-output {
+    padding: 2rem;
+    white-space: pre-wrap;
+    line-height: 1.8;
+    color: var(--text-primary);
+    max-height: 500px;
+    overflow-y: auto;
+    font-size: 0.95rem;
+    word-wrap: break-word;
+}
+
+.itinerary-output::-webkit-scrollbar {
+    width: 8px;
+}
+
+.itinerary-output::-webkit-scrollbar-track {
+    background: var(--surface-alt);
+}
+
+.itinerary-output::-webkit-scrollbar-thumb {
+    background: var(--text-tertiary);
+    border-radius: 4px;
+}
+
+.export-section {
+    text-align: center;
+}
+
+.export-button {
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+}
+
+.export-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(6, 182, 212, 0.4);
+}
+
+/* DASHBOARD STYLES */
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Top Section: Weather + Export Button */
+.dashboard-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    align-items: start;
+}
+
+.weather-widget {
+    background: linear-gradient(135deg, rgba(51, 102, 255, 0.1), rgba(124, 58, 237, 0.1));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(51, 102, 255, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    min-width: 300px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.weather-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.weather-city {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.weather-description {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Summary Cards Grid */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.summary-card {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(51, 102, 255, 0.05));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+.summary-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.summary-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    word-break: break-word;
+}
+
+/* Main Itinerary Card */
+.itinerary-card {
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    line-height: 1.8;
+}
+
+.itinerary-container {
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card-header-large {
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 1rem;
+}
+
+.card-header-large h2 {
+    font-size: 1.75rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.card-header-large p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.itinerary-content {
+    line-height: 1.8;
+}
+
+.content-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.skeleton-line {
+    height: 12px;
+    background: linear-gradient(90deg, var(--surface-alt) 0%, var(--border) 50%, var(--surface-alt) 100%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeleton-line.short {
+    width: 60%;
+}
+
+.itinerary-card h3 {
+    color: var(--primary);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.itinerary-card h4 {
+    color: var(--secondary);
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.itinerary-card h5 {
+    color: var(--accent);
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.itinerary-card p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.itinerary-card strong {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.itinerary-card em {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.itinerary-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.itinerary-card ul li {
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    color: var(--text-primary);
+}
+
+.itinerary-card ul li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* Markdown styling */
+.md-h3 {
+    color: var(--primary);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.md-h4 {
+    color: var(--secondary);
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.md-h5 {
+    color: var(--accent);
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.md-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+.md-list li {
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    color: var(--text-primary);
+}
+
+.md-list li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.itinerary-card h3 {
+    color: var(--primary);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+/* Specialized Info Cards Grid */
+.info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.info-card {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(6, 182, 212, 0.05));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.info-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.info-card-content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.info-card-content p {
+    margin-bottom: 0.75rem;
+}
+
+.info-card-content strong {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.info-card-content ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.info-card-content ul li {
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.info-card-content ul li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+/* Back Button */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--surface);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-bottom: 2rem;
+}
+
+.back-button:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateX(-2px);
+}
+
+/* Export Button for Dashboard */
+#exportPdfBtn {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+    align-self: flex-start;
+}
+
+#exportPdfBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.4);
+}
+
+/* Skeleton Loaders */
+.skeleton {
+    background: linear-gradient(90deg, var(--surface) 0%, var(--surface-alt) 50%, var(--surface) 100%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Dark Mode Adjustments */
+html.dark-mode .dashboard-container {
+    color: var(--text-primary);
+}
+
+html.dark-mode .weather-widget {
+    background: linear-gradient(135deg, rgba(51, 102, 255, 0.15), rgba(124, 58, 237, 0.15));
+    border-color: rgba(51, 102, 255, 0.3);
+}
+
+html.dark-mode .summary-card {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(51, 102, 255, 0.08));
+}
+
+html.dark-mode .itinerary-card {
+    background: var(--surface);
+}
+
+html.dark-mode .info-card {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(6, 182, 212, 0.08));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1rem;
+    }
+
+    .dashboard-top {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .weather-widget {
+        min-width: auto;
+    }
+
+    .summary-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .info-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .itinerary-card {
+        padding: 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .itinerary-card h3 {
+        font-size: 1.25rem;
+    }
+
+    .itinerary-card h4 {
+        font-size: 1.1rem;
+    }
+
+    #exportPdfBtn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 0.5rem;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-card {
+        padding: 1rem;
+    }
+
+    .summary-value {
+        font-size: 1.25rem;
+    }
+
+    .itinerary-card {
+        padding: 1rem;
+    }
+
+    .info-card {
+        padding: 1rem;
+    }
+
+    .info-card-title {
+        font-size: 1.1rem;
+    }
+
+    .back-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Footer */
+.footer {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    margin-top: 4rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 1rem;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 3rem 1rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .features-section,
+    .planner-section {
+        padding: 3rem 1rem;
+    }
+
+    .planner-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .close-results {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .planner-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .card-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
