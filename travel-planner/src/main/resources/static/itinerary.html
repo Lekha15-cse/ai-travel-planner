@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -30,18 +32,56 @@
     <div class="dashboard-container">
         <!-- Top Section -->
         <div class="dashboard-top">
-            <div class="weather-widget">
-                <div class="weather-header">
-                    <h3>🌤️ Current Weather</h3>
+            <div class="destination-snapshot-card">
+                <div class="snapshot-header-row">
+                    <h3>✨ Destination Snapshot</h3>
+                    <div class="trip-score">
+                        <span class="score-label">AI Match Score</span>
+                        <span id="snapshotScore" class="score-value">98%</span>
+                    </div>
                 </div>
-                <div id="weatherDisplay" class="weather-display">
-                    <div class="weather-skeleton"></div>
+                <div class="snapshot-grid">
+                    <div class="snapshot-item">
+                        <span class="item-icon">📍</span>
+                        <div class="item-info">
+                            <span class="item-label">Location</span>
+                            <span id="snapshotLocation" class="item-value">-</span>
+                        </div>
+                    </div>
+                    <div class="snapshot-item">
+                        <span class="item-icon">🌤️</span>
+                        <div class="item-info">
+                            <span class="item-label">Weather</span>
+                            <span id="snapshotWeather" class="item-value">-</span>
+                        </div>
+                    </div>
+                    <div class="snapshot-item">
+                        <span class="item-icon">🎯</span>
+                        <div class="item-info">
+                            <span class="item-label">Travel Style</span>
+                            <span id="snapshotStyle" class="item-value">-</span>
+                        </div>
+                    </div>
+                    <div class="snapshot-item">
+                        <span class="item-icon">🗓️</span>
+                        <div class="item-info">
+                            <span class="item-label">Best Season</span>
+                            <span id="snapshotSeason" class="item-value">-</span>
+                        </div>
+                    </div>
+                    <div class="snapshot-item">
+                        <span class="item-icon">👥</span>
+                        <div class="item-info">
+                            <span class="item-label">Crowd Level</span>
+                            <span id="snapshotCrowd" class="item-value">-</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="export-section">
                 <button id="exportPdfBtn" class="export-button-large">
-                    📄 Export as PDF
+                    📄 Export Professional Report
                 </button>
             </div>
         </div>
@@ -80,13 +120,13 @@
                 </div>
             </div>
 
-            <!-- Main Itinerary Card -->
+            <!-- Main Itinerary Card (Interactive Daily Timeline) -->
             <div class="itinerary-container">
                 <div class="card-header-large">
-                    <h2>Your Complete Itinerary</h2>
-                    <p>Detailed day-by-day travel plan</p>
+                    <h2>Interactive Daily Timeline</h2>
+                    <p>Click on any day to expand and see the details</p>
                 </div>
-                <div id="itineraryContent" class="itinerary-content">
+                <div id="itineraryContent" class="itinerary-accordion">
                     <div class="content-skeleton">
                         <div class="skeleton-line"></div>
                         <div class="skeleton-line"></div>
@@ -97,9 +137,63 @@
 
             <!-- Specialized Cards -->
             <div class="cards-grid">
+                <!-- AI Budget Recommendation -->
+                <div class="info-card ai-budget-card">
+                    <div class="card-icon">💡</div>
+                    <h3>AI Budget Recommendation</h3>
+                    <div class="budget-recommendation-content">
+                        <div class="budget-stat">
+                            <span>Entered Budget</span>
+                            <strong id="recEnteredBudget">-</strong>
+                        </div>
+                        <div class="budget-stat">
+                            <span>Estimated Trip Cost</span>
+                            <strong id="recEstimatedCost">-</strong>
+                        </div>
+                        <div class="budget-stat highlight">
+                            <span>Recommended Budget</span>
+                            <strong id="recRecommendedBudget">-</strong>
+                        </div>
+                        <div class="budget-comfort">
+                            <span>Comfort Rating:</span>
+                            <span id="recComfortRating" class="comfort-badge">Evaluating...</span>
+                        </div>
+                        <div class="budget-progress-bar-container">
+                            <div id="budgetProgressBar" class="budget-progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Budget Chart -->
+                <div class="info-card budget-card">
+                    <div class="card-icon">💵</div>
+                    <h3>Budget Allocation</h3>
+                    <div class="chart-container" style="position: relative; height:200px; width:100%; margin-top: 1rem;">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                    <div id="budgetContent" class="card-content" style="margin-top: 1rem; display: none;">
+                        <p>Loading...</p>
+                    </div>
+                </div>
+
+                <div class="info-card hidden-gems-card">
+                    <div class="card-icon">💎</div>
+                    <h3>Hidden Gems</h3>
+                    <div id="hiddenGemsContent" class="card-content">
+                        <p>Loading...</p>
+                    </div>
+                </div>
+
+                <div class="info-card food-card">
+                    <div class="card-icon">🍳</div>
+                    <h3>Local Food Guide</h3>
+                    <div id="foodContent" class="card-content">
+                        <p>Loading...</p>
+                    </div>
+                </div>
+
                 <div class="info-card accommodation-card">
                     <div class="card-icon">🏨</div>
-                    <h3>Accommodation</h3>
+                    <h3>Accommodation Ideas</h3>
                     <div id="accommodationContent" class="card-content">
                         <p>Loading...</p>
                     </div>
@@ -112,18 +206,18 @@
                         <p>Loading...</p>
                     </div>
                 </div>
-
-                <div class="info-card budget-card">
-                    <div class="card-icon">💵</div>
-                    <h3>Budget Allocation</h3>
-                    <div id="budgetContent" class="card-content">
+                
+                <div class="info-card packing-card">
+                    <div class="card-icon">🎒</div>
+                    <h3>Packing Checklist</h3>
+                    <div id="packingContent" class="card-content">
                         <p>Loading...</p>
                     </div>
                 </div>
 
                 <div class="info-card emergency-card">
                     <div class="card-icon">🆘</div>
-                    <h3>Emergency Information</h3>
+                    <h3>Emergency & Info</h3>
                     <div id="emergencyContent" class="card-content">
                         <p>Loading...</p>
                     </div>

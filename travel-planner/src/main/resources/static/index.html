@@ -67,40 +67,74 @@
     <!-- Planner Section -->
     <section id="planner-section" class="planner-section">
         <div class="planner-container">
-            <div class="planner-card">
+            <div class="planner-card" id="plannerCard">
                 <div class="card-header">
                     <h2>Start Your Adventure</h2>
                     <p>Tell us about your dream trip</p>
                 </div>
                 
                 <form id="travelForm" class="travel-form">
-                    <div class="form-group">
-                        <label for="destination">Where do you want to go?</label>
-                        <input type="text" id="destination" placeholder="e.g. Paris, Tokyo, Barcelona" required>
-                        <span class="form-help">Enter city and country</span>
-                    </div>
-
+                    <!-- Location Row -->
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="duration">Trip Duration</label>
-                            <input type="text" id="duration" placeholder="e.g. 5 days, 2 weeks" required>
-                            <span class="form-help">How long are you staying?</span>
+                            <label for="flyingFrom">Flying From</label>
+                            <input type="text" id="flyingFrom" placeholder="e.g. New York, JFK" required>
                         </div>
                         <div class="form-group">
-                            <label for="budget">Budget Level</label>
-                            <select id="budget" required>
-                                <option value="">Select budget</option>
-                                <option value="Budget">💰 Budget</option>
-                                <option value="Mid-range">💰💰 Mid-range</option>
-                                <option value="Luxury">💰💰💰 Luxury</option>
-                            </select>
+                            <label for="destination">Flying To</label>
+                            <input type="text" id="destination" placeholder="e.g. Paris, CDG" required>
                         </div>
                     </div>
 
+                    <!-- Dates & Travelers Row -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Travel Dates</label>
+                            <div class="date-picker-group">
+                                <input type="date" id="startDate" required>
+                                <span>to</span>
+                                <input type="date" id="endDate" required>
+                            </div>
+                            <span class="form-help" id="durationDisplay">Select dates to calculate duration</span>
+                            <!-- Hidden input to keep compatibility with existing backend if needed -->
+                            <input type="hidden" id="duration" value=""> 
+                        </div>
+                        <div class="form-group">
+                            <label>Travelers</label>
+                            <div class="traveler-counter">
+                                <button type="button" class="counter-btn" onclick="updateTravelers(-1)">-</button>
+                                <span id="travelerCount">2</span>
+                                <button type="button" class="counter-btn" onclick="updateTravelers(1)">+</button>
+                            </div>
+                            <span class="form-help">Total people</span>
+                        </div>
+                    </div>
+
+                    <!-- Budget Input -->
                     <div class="form-group">
-                        <label for="interests">Your Interests</label>
-                        <input type="text" id="interests" placeholder="e.g. history, food, adventure, nature" required>
-                        <span class="form-help">Comma-separated interests</span>
+                        <label for="budgetInput">Estimated Maximum Budget (₹)</label>
+                        <input type="number" id="budgetInput" placeholder="e.g. 50000" min="1000" onblur="checkBudgetHeuristic()">
+                        <div id="budgetWarning" class="budget-warning" style="display: none;"></div>
+                        <!-- Hidden input to hold the actual value sent to backend, if we want to keep it named budget -->
+                        <input type="hidden" id="budget" value="">
+                    </div>
+
+                    <!-- Interests Chips -->
+                    <div class="form-group">
+                        <label>Your Interests</label>
+                        <div class="interests-container" id="interestsContainer">
+                            <button type="button" class="chip" onclick="toggleChip(this)">History</button>
+                            <button type="button" class="chip" onclick="toggleChip(this)">Food</button>
+                            <button type="button" class="chip" onclick="toggleChip(this)">Adventure</button>
+                            <button type="button" class="chip" onclick="toggleChip(this)">Nature</button>
+                            <button type="button" class="chip" onclick="toggleChip(this)">Culture</button>
+                            <button type="button" class="chip" onclick="toggleChip(this)">Relaxation</button>
+                            <button type="button" class="chip" onclick="toggleChip(this)">Nightlife</button>
+                            <button type="button" class="chip" onclick="toggleChip(this)">Shopping</button>
+                        </div>
+                        <input type="text" id="customInterest" placeholder="Add custom interest + Enter" onkeypress="addCustomChip(event)">
+                        <!-- Hidden input to hold comma separated interests for backend -->
+                        <input type="hidden" id="interests" value="">
                     </div>
 
                     <button type="button" id="planBtn" class="plan-button" onclick="generatePlan()">
@@ -109,13 +143,30 @@
                     </button>
                 </form>
 
-                <div id="loading" class="loading-state" style="display: none;">
-                    <div class="skeleton-loader">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text"></div>
+                <!-- Premium Loading Screen -->
+                <div id="loading" class="premium-loading" style="display: none;">
+                    <div class="loading-airplane-container">
+                        <div class="loading-airplane">✈️</div>
+                        <div class="flight-path"></div>
                     </div>
-                    <p class="loading-text">🤖 Planning your adventure...</p>
+                    
+                    <h3 class="loading-title">Crafting Your Journey...</h3>
+                    <div class="loading-messages" id="loadingMessages">
+                        Analyzing best flight routes...
+                    </div>
+                    
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <p class="estimated-time">Estimated completion: <span id="estTime">15s</span></p>
+
+                    <div class="travel-fact-card">
+                        <div class="fact-icon">💡</div>
+                        <div class="fact-content">
+                            <h4>Did you know?</h4>
+                            <p id="travelFact">France is the most visited country in the world.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

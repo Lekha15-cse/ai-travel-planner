@@ -26,28 +26,202 @@ themeToggle.addEventListener('click', toggleTheme);
 // Initialize theme on page load
 initTheme();
 
-// Generate Plan Function
-async function generatePlan() {
-    const destination = document.getElementById('destination').value.trim();
-    const duration = document.getElementById('duration').value.trim();
-    const budget = document.getElementById('budget').value;
-    const interests = document.getElementById('interests').value.trim();
-    const planBtn = document.getElementById('planBtn');
-    const loading = document.getElementById('loading');
-    const results = document.getElementById('results');
-    const weatherCard = document.getElementById('weatherCard');
-    const itineraryOutput = document.getElementById('itineraryOutput');
+// Form Logic
 
-    if (!destination || !duration || !budget || !interests) {
-        showNotification('Please fill in all fields', 'error');
+// Travelers
+let travelers = 2;
+function updateTravelers(change) {
+    travelers += change;
+    if (travelers < 1) travelers = 1;
+    if (travelers > 15) travelers = 15;
+    document.getElementById('travelerCount').textContent = travelers;
+}
+
+// Budget Input Logic
+function checkBudgetHeuristic() {
+    const input = document.getElementById('budgetInput');
+    const warning = document.getElementById('budgetWarning');
+    const destination = document.getElementById('destination').value.trim().toLowerCase();
+    const budgetVal = parseInt(input.value);
+
+    // Sync hidden input
+    document.getElementById('budget').value = `₹${budgetVal}`;
+
+    if (!budgetVal || isNaN(budgetVal) || !destination) {
+        warning.style.display = 'none';
         return;
     }
 
-    planBtn.disabled = true;
-    const originalText = planBtn.innerHTML;
-    planBtn.innerHTML = '<span class="button-text">Planning...</span><span class="button-icon">⏳</span>';
+    // Simple heuristic map (Baseline Minimums)
+    const heuristics = {
+        'goa': 8000,
+        'paris': 80000,
+        'london': 90000,
+        'tokyo': 75000,
+        'new york': 100000,
+        'bali': 25000,
+        'dubai': 50000,
+        'mumbai': 10000,
+        'delhi': 8000
+    };
+
+    let minExpected = 0;
+    for (const [key, value] of Object.entries(heuristics)) {
+        if (destination.includes(key)) {
+            minExpected = value;
+            break;
+        }
+    }
+
+    // Default minimum if destination not in list
+    if (minExpected === 0) {
+        minExpected = 5000;
+    }
+
+    if (budgetVal < minExpected) {
+        const destDisplay = destination.charAt(0).toUpperCase() + destination.slice(1);
+        warning.innerHTML = `💡 <strong>AI Tip:</strong> Trips to ${destDisplay} generally start around ₹${minExpected.toLocaleString()}. You can continue, but increasing your budget may improve accommodation and activity options.`;
+        warning.style.display = 'block';
+    } else {
+        warning.style.display = 'none';
+    }
+}
+
+// Interest Chips
+let selectedInterests = new Set();
+function toggleChip(btn) {
+    btn.classList.toggle('active');
+    const interest = btn.textContent;
+    if (btn.classList.contains('active')) {
+        selectedInterests.add(interest);
+    } else {
+        selectedInterests.delete(interest);
+    }
+    updateInterestsInput();
+}
+
+function addCustomChip(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        const input = document.getElementById('customInterest');
+        const val = input.value.trim();
+        if (val) {
+            const container = document.getElementById('interestsContainer');
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'chip active';
+            btn.textContent = val;
+            btn.onclick = function() { toggleChip(this); };
+            container.appendChild(btn);
+            selectedInterests.add(val);
+            updateInterestsInput();
+            input.value = '';
+        }
+    }
+}
+
+function updateInterestsInput() {
+    document.getElementById('interests').value = Array.from(selectedInterests).join(', ');
+}
+
+// Date Range
+function updateDuration() {
+    const start = document.getElementById('startDate').value;
+    const end = document.getElementById('endDate').value;
+    if (start && end) {
+        const d1 = new Date(start);
+        const d2 = new Date(end);
+        if (d2 >= d1) {
+            const diffTime = Math.abs(d2 - d1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 to include both start and end days
+            document.getElementById('durationDisplay').textContent = `${diffDays} days total`;
+            document.getElementById('duration').value = `${diffDays} days`;
+        } else {
+            document.getElementById('durationDisplay').textContent = 'End date must be after start date';
+            document.getElementById('duration').value = '';
+        }
+    }
+}
+document.getElementById('startDate').addEventListener('change', updateDuration);
+document.getElementById('endDate').addEventListener('change', updateDuration);
+
+// Loading Animation
+const loadingMessages = [
+    "Analyzing best flight routes...",
+    "Finding hidden gems...",
+    "Curating local dining spots...",
+    "Checking weather patterns...",
+    "Optimizing your budget...",
+    "Finalizing your itinerary..."
+];
+
+function startLoadingAnimation() {
+    const loading = document.getElementById('loading');
+    const form = document.getElementById('travelForm');
+    const messagesEl = document.getElementById('loadingMessages');
+    const progressBar = document.getElementById('progressBar');
+    const estTime = document.getElementById('estTime');
+    
+    // Hide form, show loading
+    form.style.display = 'none';
     loading.style.display = 'block';
-    results.style.display = 'none';
+    
+    // Reset
+    progressBar.style.width = '0%';
+    let progress = 0;
+    let messageIdx = 0;
+    let timeRemaining = 15;
+    
+    // Interval for progress & time
+    const interval = setInterval(() => {
+        progress += (100 / 150); // 15 seconds * 10 ticks/sec
+        if (progress > 95) progress = 95; // cap at 95% until complete
+        progressBar.style.width = `${progress}%`;
+        
+        if (progress % 10 < 1) { // roughly every second
+            timeRemaining--;
+            if (timeRemaining < 1) timeRemaining = 1;
+            estTime.textContent = `${timeRemaining}s`;
+        }
+        
+        // Cycle messages
+        if (progress % 20 < 1) { // every ~3 seconds
+            messageIdx = (messageIdx + 1) % loadingMessages.length;
+            messagesEl.style.opacity = 0;
+            setTimeout(() => {
+                messagesEl.textContent = loadingMessages[messageIdx];
+                messagesEl.style.opacity = 1;
+            }, 300);
+        }
+        
+    }, 100);
+    
+    return interval;
+}
+
+// Generate Plan Function
+async function generatePlan() {
+    const flyingFrom = document.getElementById('flyingFrom').value.trim();
+    let destination = document.getElementById('destination').value.trim();
+    let duration = document.getElementById('duration').value.trim();
+    const budget = document.getElementById('budget').value;
+    const interests = document.getElementById('interests').value.trim();
+    const planBtn = document.getElementById('planBtn');
+
+    if (!destination || !duration || !budget || !interests) {
+        showNotification('Please fill in all fields (Dates, Interests)', 'error');
+        return;
+    }
+
+    // Enhance prompt data without breaking backend API format
+    if (flyingFrom) {
+        destination = `${destination} (Flying from: ${flyingFrom})`;
+    }
+    duration = `${duration} (for ${travelers} travelers)`;
+
+    planBtn.disabled = true;
+    
+    const loaderInterval = startLoadingAnimation();
 
     try {
         const response = await fetch('/api/plan', {
@@ -64,10 +238,14 @@ async function generatePlan() {
 
         const data = await response.json();
         
-        // Simulate network delay for better UX
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        loading.style.display = 'none';
+        // Finish progress bar
+        clearInterval(loaderInterval);
+        document.getElementById('progressBar').style.width = '100%';
+        document.getElementById('loadingMessages').textContent = "Journey Ready!";
+        document.getElementById('estTime').textContent = "Complete";
+        
+        // Brief pause for effect
+        await new Promise(resolve => setTimeout(resolve, 800));
         
         // Store data in sessionStorage for itinerary page
         const travelData = {
@@ -86,11 +264,12 @@ async function generatePlan() {
         
     } catch (error) {
         console.error('Error:', error);
-        loading.style.display = 'none';
+        clearInterval(loaderInterval);
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('travelForm').style.display = 'flex';
         showNotification('Failed to generate travel plan. Please try again.', 'error');
     } finally {
         planBtn.disabled = false;
-        planBtn.innerHTML = originalText;
     }
 }
 
