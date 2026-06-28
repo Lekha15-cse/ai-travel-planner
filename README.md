@@ -23,7 +23,7 @@
 
 ## 🎬 YouTube Demo
 
-> 🎥 **[Watch the Demo Video](#)** — _Replace this link after recording_
+> 🎥 **[Watch the Demo Video](#)** — https://youtu.be/gk0efaQ74H4
 
 ---
 
