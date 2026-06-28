@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/AI-LLaMA%203.3%2070B-blue?logo=meta" alt="LLaMA 3.3">
     <img src="https://img.shields.io/badge/Groq-Inference%20API-purple" alt="Groq API">
     <img src="https://img.shields.io/badge/Deployment-Local%20Setup-success" alt="Deployment">
-    <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License">
+    <!-- <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License"> -->
   </p>
 </p>
 
