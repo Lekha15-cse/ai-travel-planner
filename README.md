@@ -8,13 +8,26 @@
     <img src="https://img.shields.io/badge/Spring%20Boot-3.3.0-brightgreen?logo=springboot" alt="Spring Boot">
     <img src="https://img.shields.io/badge/AI-LLaMA%203.3%2070B-blue?logo=meta" alt="LLaMA 3.3">
     <img src="https://img.shields.io/badge/Groq-Inference%20API-purple" alt="Groq API">
+    <img src="https://img.shields.io/badge/Deploy-Railway-black?logo=railway" alt="Railway">
     <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License">
   </p>
 </p>
 
 ---
 
-## 📖 Project Description
+## 🔗 Live Demo
+
+> 🚀 **[Live Demo on Railway](#)** — _Replace this link after deployment_
+
+---
+
+## 🎬 YouTube Demo
+
+> 🎥 **[Watch the Demo Video](#)** — _Replace this link after recording_
+
+---
+
+## 📖 Project Overview
 
 **AI Travel Planner** solves the problem of overwhelming travel planning by combining the power of large language models with real-time data. Instead of spending hours researching destinations, comparing options, and building itineraries manually, users simply enter their destination, dates, budget, and interests — and the AI generates a complete, day-by-day travel plan in seconds.
 
@@ -48,10 +61,10 @@ The application uses **LLaMA 3.3 70B Versatile** (served via Groq's ultra-fast i
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technologies Used
 
 | Layer | Technology |
-|-------|-----------|
+|-------|-----------:|
 | **Backend** | Spring Boot 3.3.0 (Java 21) |
 | **AI / LLM** | LLaMA 3.3 70B Versatile via [Groq API](https://console.groq.com) |
 | **Frontend** | HTML5, CSS3, Vanilla JavaScript |
@@ -60,10 +73,11 @@ The application uses **LLaMA 3.3 70B Versatile** (served via Groq's ultra-fast i
 | **Charts** | [Chart.js](https://www.chartjs.org) |
 | **PDF Export** | [jsPDF](https://github.com/parallax/jsPDF) |
 | **Build Tool** | Maven (with Maven Wrapper) |
+| **Deployment** | [Railway](https://railway.app) |
 
 ---
 
-## 🏗️ Architecture Overview
+## 🏗️ Project Architecture
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
@@ -79,7 +93,7 @@ The application uses **LLaMA 3.3 70B Versatile** (served via Groq's ultra-fast i
                               │
                               ▼
 ┌──────────────────────────────────────────────────────────────────┐
-│                   Spring Boot Backend (port 8081)                 │
+│                   Spring Boot Backend                             │
 │                                                                  │
 │  ┌───────────────────────┐                                       │
 │  │  TravelController     │                                       │
@@ -104,30 +118,34 @@ The application uses **LLaMA 3.3 70B Versatile** (served via Groq's ultra-fast i
 
 ---
 
-## 📁 Project Structure
+## 📁 Folder Structure
 
 ```
 ai-travel-planner/
 ├── .gitignore
 ├── README.md
 └── travel-planner/
+    ├── .env                                   # Environment variables (git-ignored)
+    ├── .env.example                           # Template for environment variables
     ├── .gitignore
-    ├── .mvn/wrapper/                      # Maven Wrapper config
-    ├── mvnw                               # Maven Wrapper (Linux/Mac)
-    ├── mvnw.cmd                           # Maven Wrapper (Windows)
-    ├── pom.xml                            # Maven dependencies
+    ├── Procfile                               # Railway start command
+    ├── system.properties                      # Java version for Railway
+    ├── .mvn/wrapper/                          # Maven Wrapper config
+    ├── mvnw                                   # Maven Wrapper (Linux/Mac)
+    ├── mvnw.cmd                               # Maven Wrapper (Windows)
+    ├── pom.xml                                # Maven dependencies
     └── src/
         ├── main/
         │   ├── java/com/lekha/travel_planner/
         │   │   ├── TravelPlannerApplication.java   # Spring Boot entry point
         │   │   ├── controller/
-        │   │   │   └── TravelController.java       # REST API endpoint
+        │   │   │   ├── TravelController.java       # REST API endpoint
+        │   │   │   └── GlobalExceptionHandler.java  # Centralized error handling
         │   │   └── service/
         │   │       ├── GroqService.java             # LLaMA 3.3 70B integration
         │   │       └── WeatherService.java          # wttr.in weather fetcher
         │   └── resources/
         │       ├── application.properties           # App config (uses env vars)
-        │       ├── application.properties.example   # Example config template
         │       └── static/
         │           ├── index.html                   # Landing page + input form
         │           ├── itinerary.html               # Itinerary dashboard
@@ -150,7 +168,7 @@ ai-travel-planner/
 
 ---
 
-## 🚀 Installation Instructions
+## 🚀 Installation Steps
 
 ### 1. Clone the Repository
 
@@ -168,36 +186,19 @@ cd ai-travel-planner/travel-planner
 
 ### 3. Configure the API Key
 
-**Option A — Environment Variable (Recommended):**
+Create a `.env` file from the template:
 
 ```bash
-# Windows (PowerShell)
-$env:GROQ_API_KEY = "gsk_your_key_here"
-
-# Windows (CMD)
-set GROQ_API_KEY=gsk_your_key_here
-
-# Mac / Linux
-export GROQ_API_KEY=gsk_your_key_here
+cp .env.example .env
 ```
 
-**Option B — Application Properties:**
+Edit `.env` and replace the placeholder with your real key:
 
-Copy the example config and add your key:
-
-```bash
-cp src/main/resources/application.properties.example src/main/resources/application.properties
+```
+GROQ_API_KEY=gsk_your_actual_key_here
 ```
 
-Edit `application.properties`:
-
-```properties
-spring.application.name=travel-planner
-groq.api.key=gsk_your_key_here
-server.port=8081
-```
-
-> ⚠️ **Never commit your actual API key to Git.**
+> ⚠️ **Never commit your `.env` file to Git.** It is already in `.gitignore`.
 
 ---
 
@@ -217,51 +218,89 @@ Then open your browser at: **[http://localhost:8081](http://localhost:8081)**
 
 ## 🔐 Environment Variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `GROQ_API_KEY` | ✅ Yes | Your Groq API key for LLaMA 3.3 70B inference |
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `GROQ_API_KEY` | ✅ Yes | — | Your Groq API key for LLaMA 3.3 70B inference |
+| `PORT` | ❌ No | `8081` | Server port (Railway sets this automatically) |
 
 ---
 
-## 🌐 Deployment Instructions (Render — Free Tier)
+## 🚂 Railway Deployment Instructions
 
-[Render](https://render.com) is the recommended free platform for deploying Spring Boot applications.
+[Railway](https://railway.app) is the recommended platform for deploying this application.
 
-### Step 1 — Create a Render Account
+### Step 1 — Create a Railway Account
 
-Sign up at [https://render.com](https://render.com) (free tier available).
+Sign up at [https://railway.app](https://railway.app).
 
-### Step 2 — Create a New Web Service
+### Step 2 — Create a New Project
 
-1. Click **New → Web Service**
+1. Click **New Project → Deploy from GitHub Repo**
 2. Connect your GitHub repository: `Lekha15-cse/ai-travel-planner`
-3. Configure the service:
+3. Railway will auto-detect this is a Java/Maven project
+
+### Step 3 — Configure Settings
+
+In the Railway service settings, configure:
 
 | Setting | Value |
 |---------|-------|
-| **Name** | `ai-travel-planner` |
-| **Region** | Choose closest to you |
-| **Branch** | `main` |
 | **Root Directory** | `travel-planner` |
-| **Runtime** | `Java` |
 | **Build Command** | `./mvnw clean package -DskipTests` |
 | **Start Command** | `java -jar target/travel-planner-0.0.1-SNAPSHOT.jar` |
-| **Instance Type** | Free |
 
-### Step 3 — Set Environment Variables
+> 💡 Railway auto-detects the `Procfile` and `system.properties` files, so the start command and Java version may be configured automatically.
 
-In the Render dashboard, go to **Environment** and add:
+### Step 4 — Set Environment Variables
+
+In the Railway dashboard, go to your service's **Variables** tab and add:
 
 | Key | Value |
 |-----|-------|
 | `GROQ_API_KEY` | `gsk_your_key_here` |
-| `PORT` | `8081` |
 
-### Step 4 — Deploy
+> **Note:** `PORT` is set automatically by Railway. Do not set it manually.
 
-Click **Create Web Service**. Render will build and deploy your application automatically.
+### Step 5 — Deploy
 
-> 💡 **Note:** Free-tier instances spin down after 15 minutes of inactivity. The first request after idle may take 30–60 seconds to cold start.
+Click **Deploy**. Railway will build and deploy your application automatically. Your app will be live at the generated Railway URL.
+
+---
+
+## 🔧 API Endpoints
+
+### `POST /api/plan`
+
+Generate a personalized travel itinerary.
+
+**Request Body:**
+
+```json
+{
+  "destination": "Paris",
+  "duration": "5 days",
+  "budget": "₹80000",
+  "interests": "History, Food, Art"
+}
+```
+
+**Response:**
+
+```json
+{
+  "destination": "Paris",
+  "weather": "Paris: ☀️ +24°C",
+  "itinerary": "## Day 1: Arrival & Settling In\n\n### Morning\n..."
+}
+```
+
+**Error Response (400):**
+
+```json
+{
+  "error": "Destination is required"
+}
+```
 
 ---
 
@@ -293,7 +332,20 @@ Click **Create Web Service**. Render will build and deploy your application auto
 
 ---
 
-## 🔮 Future Improvements
+## 📄 PDF Export
+
+The application generates professional, multi-page PDF reports using **jsPDF**:
+
+- 📐 Formatted headings with color-coded hierarchy
+- 📝 Markdown-to-text conversion with bullet point formatting
+- 📄 Automatic page breaks with consistent margins
+- 🔢 Page numbering footer (`Page X of Y — AI Travel Planner`)
+- 📅 Generated date and trip metadata in the header
+- 💾 Auto-download with destination-based filename
+
+---
+
+## 🔮 Future Enhancements
 
 - 🗺️ Interactive map with pinned attractions using Google Maps / Leaflet.js
 - 🔐 User authentication and saved itinerary history
@@ -323,27 +375,6 @@ Click **Create Web Service**. Render will build and deploy your application auto
 | **LLaMA 3.3 70B Versatile** | [Groq](https://groq.com) | Generates the complete travel itinerary including day-wise plans, accommodation, food, transportation, budget breakdown, and emergency information |
 
 Groq provides ultra-fast inference (~200 tokens/sec) making the experience feel near real-time.
-
----
-
-## 🌦️ Weather API Used
-
-| API | Provider | Purpose |
-|-----|----------|---------|
-| **wttr.in** | [wttr.in](https://wttr.in) | Fetches current real-time weather conditions for the destination city. Free, no authentication required. |
-
----
-
-## 📄 PDF Export
-
-The application generates professional, multi-page PDF reports using **jsPDF**:
-
-- 📐 Formatted headings with color-coded hierarchy
-- 📝 Markdown-to-text conversion with bullet point formatting
-- 📄 Automatic page breaks with consistent margins
-- 🔢 Page numbering footer (`Page X of Y — AI Travel Planner`)
-- 📅 Generated date and trip metadata in the header
-- 💾 Auto-download with destination-based filename
 
 ---
 
