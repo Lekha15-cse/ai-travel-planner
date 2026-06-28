@@ -8,7 +8,7 @@
     <img src="https://img.shields.io/badge/Spring%20Boot-3.3.0-brightgreen?logo=springboot" alt="Spring Boot">
     <img src="https://img.shields.io/badge/AI-LLaMA%203.3%2070B-blue?logo=meta" alt="LLaMA 3.3">
     <img src="https://img.shields.io/badge/Groq-Inference%20API-purple" alt="Groq API">
-    <img src="https://img.shields.io/badge/Deploy-Railway-black?logo=railway" alt="Railway">
+    <img src="https://img.shields.io/badge/Deployment-Local%20Setup-success" alt="Deployment">
     <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License">
   </p>
 </p>
@@ -17,7 +17,7 @@
 
 ## 🔗 Live Demo
 
-> 🚀 **[Live Demo on Railway](#)** — _Replace this link after deployment_
+> 🚀 Deployment will be added after cloud hosting is completed.
 
 ---
 
@@ -73,7 +73,7 @@ The application uses **LLaMA 3.3 70B Versatile** (served via Groq's ultra-fast i
 | **Charts** | [Chart.js](https://www.chartjs.org) |
 | **PDF Export** | [jsPDF](https://github.com/parallax/jsPDF) |
 | **Build Tool** | Maven (with Maven Wrapper) |
-| **Deployment** | [Railway](https://railway.app) |
+| **Deployment** | Localhost (Cloud deployment in progress) |
 
 ---
 
@@ -128,8 +128,6 @@ ai-travel-planner/
     ├── .env                                   # Environment variables (git-ignored)
     ├── .env.example                           # Template for environment variables
     ├── .gitignore
-    ├── Procfile                               # Railway start command
-    ├── system.properties                      # Java version for Railway
     ├── .mvn/wrapper/                          # Maven Wrapper config
     ├── mvnw                                   # Maven Wrapper (Linux/Mac)
     ├── mvnw.cmd                               # Maven Wrapper (Windows)
@@ -221,50 +219,23 @@ Then open your browser at: **[http://localhost:8081](http://localhost:8081)**
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `GROQ_API_KEY` | ✅ Yes | — | Your Groq API key for LLaMA 3.3 70B inference |
-| `PORT` | ❌ No | `8081` | Server port (Railway sets this automatically) |
+| `PORT` | ❌ No | `8081` | Optional server port |
 
 ---
 
-## 🚂 Railway Deployment Instructions
+## ☁️ Deployment
 
-[Railway](https://railway.app) is the recommended platform for deploying this application.
+The application is currently designed for local execution using Spring Boot.
 
-### Step 1 — Create a Railway Account
+Cloud deployment instructions will be added after deployment is completed.
 
-Sign up at [https://railway.app](https://railway.app).
+The application can be deployed on platforms such as:
 
-### Step 2 — Create a New Project
-
-1. Click **New Project → Deploy from GitHub Repo**
-2. Connect your GitHub repository: `Lekha15-cse/ai-travel-planner`
-3. Railway will auto-detect this is a Java/Maven project
-
-### Step 3 — Configure Settings
-
-In the Railway service settings, configure:
-
-| Setting | Value |
-|---------|-------|
-| **Root Directory** | `travel-planner` |
-| **Build Command** | `./mvnw clean package -DskipTests` |
-| **Start Command** | `java -jar target/travel-planner-0.0.1-SNAPSHOT.jar` |
-
-> 💡 Railway auto-detects the `Procfile` and `system.properties` files, so the start command and Java version may be configured automatically.
-
-### Step 4 — Set Environment Variables
-
-In the Railway dashboard, go to your service's **Variables** tab and add:
-
-| Key | Value |
-|-----|-------|
-| `GROQ_API_KEY` | `gsk_your_key_here` |
-
-> **Note:** `PORT` is set automatically by Railway. Do not set it manually.
-
-### Step 5 — Deploy
-
-Click **Deploy**. Railway will build and deploy your application automatically. Your app will be live at the generated Railway URL.
-
+- Render
+- Railway
+- Koyeb
+- Azure App Service
+- AWS Elastic Beanstalk
 ---
 
 ## 🔧 API Endpoints
@@ -378,11 +349,6 @@ Groq provides ultra-fast inference (~200 tokens/sec) making the experience feel 
 
 ---
 
-## 📄 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
----
 
 ## 👩‍💻 Author
 
