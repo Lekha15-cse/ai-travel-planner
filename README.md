@@ -9,7 +9,6 @@
     <img src="https://img.shields.io/badge/AI-LLaMA%203.3%2070B-blue?logo=meta" alt="LLaMA 3.3">
     <img src="https://img.shields.io/badge/Groq-Inference%20API-purple" alt="Groq API">
     <img src="https://img.shields.io/badge/Deployment-Local%20Setup-success" alt="Deployment">
-    <!-- <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License"> -->
   </p>
 </p>
 
@@ -23,7 +22,7 @@
 
 ## 🎬 YouTube Demo
 
-> 🎥 **[Watch the Demo Video](#)** — https://youtu.be/gk0efaQ74H4
+> 🎥 **🎥 Watch the complete project demonstration:** — https://youtu.be/gk0efaQ74H4
 
 ---
 
@@ -73,7 +72,7 @@ The application uses **LLaMA 3.3 70B Versatile** (served via Groq's ultra-fast i
 | **Charts** | [Chart.js](https://www.chartjs.org) |
 | **PDF Export** | [jsPDF](https://github.com/parallax/jsPDF) |
 | **Build Tool** | Maven (with Maven Wrapper) |
-| **Deployment** | Localhost (Cloud deployment in progress) |
+| **Deployment** | Localhost Development |
 
 ---
 
@@ -294,15 +293,6 @@ Generate a personalized travel itinerary.
 
 ---
 
-## 📸 Screenshots
-
-> Screenshots will be added after deployment. To add screenshots:
-> 1. Capture the landing page, form, loading animation, and itinerary dashboard
-> 2. Save images to a `screenshots/` directory
-> 3. Reference them here with `![Description](screenshots/filename.png)`
-
----
-
 ## 📄 PDF Export
 
 The application generates professional, multi-page PDF reports using **jsPDF**:
@@ -354,4 +344,4 @@ Groq provides ultra-fast inference (~200 tokens/sec) making the experience feel 
 
 **Lekha** — [@Lekha15-cse](https://github.com/Lekha15-cse)
 
-Built with ❤️ for the hackathon.
+Built with ❤️ for the Claysys AI hackathon 2026.
